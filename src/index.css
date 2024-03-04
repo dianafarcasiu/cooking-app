@@ -1,13 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
+
+:root {
+  --logo-color: salmon;
+  --bg-color: #f8f9fc;
+  --cards-bg-color: rgba(250, 128, 114, 0.04);
+}
+* {
+  box-sizing: border-box;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto", sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--bg-color);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Navbar style */
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.logo {
+  color: var(--logo-color);
+  font-family: "Cedarville Cursive";
+  font-weight: bold;
+  cursor: pointer;
+  position: sticky;
+}
+.logo:hover {
+  transform: scale(1.1);
+}
+i {
+  font-size: 1.5rem;
+}
+i:hover {
+  color: var(--logo-color);
+}
+.search-bar {
+  width: 550px;
+}
+.search-bar:focus {
+  outline: 2px solid var(--logo-color);
+}
+
+/* Sidebar style */
+.list-group {
+  font-size: 0.9rem;
+}
+.list-group li {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 0.5px solid #ccc;
+}
+.list-group li:hover {
+  color: var(--logo-color);
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+/* Meal Cards Style */
+.card {
+  width: 22rem;
+  overflow: hidden;
+}
+.card:hover {
+  transform: scale(0.98);
+}
+.card.results:hover {
+  box-shadow: 0 2px 2px rgba(250, 128, 114, 0.2),
+    0 4px 4px rgba(250, 128, 114, 0.4);
+}
+
+/* Random Meals */
+#random-container {
+  overflow-x: scroll;
+  white-space: nowrap;
+  width: 100%;
+  padding-right: 125px;
+}
+::-webkit-scrollbar-track {
+  height: 1px;
+}
+.card.random {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.card.random.text {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 1rem;
+  border: 0;
+}
+
+/* Meal Results */
+.card.results {
+  background-color: var(--cards-bg-color);
+  padding: 0 2px;
+  /* height: 12rem; */
+}
+.card-img {
+  height: 155px;
+  width: 155px;
+  border-radius: 50%;
+}
+.mealcard-content {
+  font-size: 1rem;
+}
+.meal-description {
+  font-size: 0.9rem;
+}
+.mealcard-content h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.badge {
+  background-color: var(--logo-color);
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+  .search-bar {
+    width: 150%;
+  }
+}
+@media (max-width: 768px) {
+  i,
+  .logo {
+    font-size: 1rem;
+  }
+  .search-bar {
+    width: 100%;
+  }
+  .results,
+  .random {
+    justify-content: center;
+  }
+  #random-container {
+    flex-wrap: wrap;
+  }
 }
