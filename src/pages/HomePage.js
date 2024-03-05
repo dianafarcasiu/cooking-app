@@ -16,8 +16,8 @@ const HomePage = () => {
   }
 
   return (
-    <div>
-      <Navbar value={input} onChange={handleInputChange} />
+    <>
+      <Navbar value={input} onChange={handleInputChange} isHomePage={true} />
 
       <div className="d-flex container-fluid">
         <Sidebar setMeals={setMeals} setTitle={setTitle} />
@@ -33,7 +33,7 @@ const HomePage = () => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

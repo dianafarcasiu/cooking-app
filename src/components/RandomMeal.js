@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const RandomMeal = () => {
   const [randomMeal, setRandomMeal] = useState([]);
@@ -9,7 +10,6 @@ const RandomMeal = () => {
         "https://www.themealdb.com/api/json/v1/1/random.php"
       );
       const data = await res.json();
-      console.log(data);
       setRandomMeal(data.meals[0]);
     }
 
@@ -17,7 +17,7 @@ const RandomMeal = () => {
   }, []);
 
   return (
-    <div>
+    <Link to={`/meal/${randomMeal.idMeal}`}>
       <div
         className="card random"
         style={{
@@ -31,7 +31,7 @@ const RandomMeal = () => {
           <p>-{randomMeal.strArea}-</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

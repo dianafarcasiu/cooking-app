@@ -1,11 +1,18 @@
 import "./index.css";
 import HomePage from "./pages/HomePage";
+import MealPage from "./pages/MealPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="meal/:mealID" element={<MealPage />} />
+        <Route path="favorites" element={<FavoritesPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -3,11 +3,11 @@ import Logo from "../components/Logo";
 import Search from "../components/Search";
 import NavbarActions from "./NavbarActions";
 
-const Navbar = ({ value, onChange }) => {
+const Navbar = ({ value, onChange, isHomePage }) => {
   return (
     <div className="navbar containers d-flex justify-content-between my-4 px-5">
       <Logo />
-      <Search value={value} onChange={onChange} />
+      {isHomePage && <Search value={value} onChange={onChange} />}
       <NavbarActions />
     </div>
   );

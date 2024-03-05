@@ -1,12 +1,11 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const FavoritesIcon = () => {
   return (
-    <div>
-      <a href="#">
-        <i className="fa-regular fa-heart"></i>
-      </a>
-    </div>
+    <NavLink to="/favorites">
+      <i className="fa-regular fa-heart actions"></i>
+    </NavLink>
   );
 };
 

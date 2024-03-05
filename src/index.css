@@ -15,27 +15,29 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-color);
 }
-
-/* Navbar style */
 a {
   text-decoration: none;
-  color: inherit;
-  cursor: pointer;
 }
+
+/* Navbar style */
+
 .logo {
   color: var(--logo-color);
   font-family: "Cedarville Cursive";
   font-weight: bold;
+  font-size: 1.6rem;
   cursor: pointer;
   position: sticky;
 }
 .logo:hover {
   transform: scale(1.1);
 }
-i {
+.actions {
+  color: #000;
   font-size: 1.5rem;
+  cursor: pointer;
 }
-i:hover {
+.actions:hover {
   color: var(--logo-color);
 }
 .search-bar {
@@ -44,6 +46,8 @@ i:hover {
 .search-bar:focus {
   outline: 2px solid var(--logo-color);
 }
+
+/* HOMEPAGE */
 
 /* Sidebar style */
 .list-group {
@@ -64,6 +68,7 @@ i:hover {
 .card {
   width: 22rem;
   overflow: hidden;
+  cursor: pointer;
 }
 .card:hover {
   transform: scale(0.98);
@@ -120,7 +125,45 @@ i:hover {
   background-color: var(--logo-color);
 }
 
-/* Media Queries */
+/* MEALPAGE */
+
+.meal-img {
+  width: 30rem;
+  border-radius: 35px;
+  /* border: 1px solid var(--logo-color); */
+}
+/* .meal-img:hover {
+  transform: scale(1.1);
+} */
+.ingredient-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.instructions {
+  text-align: justify;
+  margin: 4rem 10rem;
+  line-height: 1.8;
+}
+
+.buttons button {
+  padding: 0.6rem;
+  background: transparent;
+  color: var(--logo-color);
+  border: 1px solid var(--logo-color);
+  border-radius: 10px;
+  font-family: inherit;
+  /* font-size: 1.1rem; */
+}
+.buttons button:hover {
+  background-color: var(--logo-color);
+  color: #fff;
+}
+.buttons a {
+  color: inherit;
+}
+
+/* MEDIA QUERIES*/
 @media (max-width: 992px) {
   .search-bar {
     width: 150%;
@@ -140,5 +183,8 @@ i:hover {
   }
   #random-container {
     flex-wrap: wrap;
+  }
+  .instructions {
+    margin: 2rem;
   }
 }

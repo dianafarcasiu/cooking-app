@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Meal from "../components/Meal";
 import Text from "../components/Text";
+import { Link } from "react-router-dom";
 
 const MealResults = ({ input, setInput, title, meals, setMeals }) => {
   useEffect(
@@ -21,12 +22,14 @@ const MealResults = ({ input, setInput, title, meals, setMeals }) => {
 
   return (
     <div>
-      {meals.length > 0 && <Text text={title} />}
+      {meals && <Text text={title} />}
 
       <div className="results d-flex flex-wrap gap-4 py-4">
         {meals &&
           meals.map((meal) => (
-            <Meal meal={meal} id={meal.idMeal} key={meal.idMeal} />
+            <Link to={`/meal/${meal.idMeal}`}>
+              <Meal meal={meal} id={meal.idMeal} key={meal.idMeal} />
+            </Link>
           ))}
       </div>
     </div>

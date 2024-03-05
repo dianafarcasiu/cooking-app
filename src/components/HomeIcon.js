@@ -1,12 +1,11 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const HomeIcon = () => {
   return (
-    <div>
-      <a href="#">
-        <i className="fa-solid fa-house"></i>
-      </a>
-    </div>
+    <NavLink to="/">
+      <i className="fa-solid fa-house actions"></i>
+    </NavLink>
   );
 };
 
