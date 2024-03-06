@@ -17,6 +17,7 @@ body {
 }
 a {
   text-decoration: none;
+  color: #000;
 }
 
 /* Navbar style */
@@ -127,22 +128,41 @@ a {
 
 /* MEALPAGE */
 
+.arrow {
+  background: transparent;
+  font-size: 1.8rem;
+  color: #000;
+}
+.arrow i {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+.arrow i:hover {
+  color: var(--logo-color);
+  transform: scale(1.2);
+}
+
 .meal-img {
   width: 30rem;
   border-radius: 35px;
-  /* border: 1px solid var(--logo-color); */
 }
-/* .meal-img:hover {
-  transform: scale(1.1);
-} */
 .ingredient-list {
   padding: 0;
   list-style-type: none;
 }
+.ingredient-list li {
+  padding: 0.2rem 0;
+}
 
+.meal-info {
+  font-size: 1.2rem;
+}
+.meal-info span {
+  color: var(--logo-color);
+}
 .instructions {
   text-align: justify;
-  margin: 4rem 10rem;
+  margin: 3rem 10rem;
   line-height: 1.8;
 }
 
@@ -159,8 +179,40 @@ a {
   background-color: var(--logo-color);
   color: #fff;
 }
+.buttons button:active {
+  transform: scale(0.96);
+}
 .buttons a {
   color: inherit;
+}
+
+/* FAVORITES */
+.favorites-list {
+  padding: 0 5rem;
+}
+.favorite {
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 0.6rem;
+}
+.favorite img {
+  width: 12rem;
+  border-radius: 15px;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 0;
+  margin-left: auto;
+  padding-right: 1.4rem;
+  font-size: 1.4rem;
+}
+.btn-delete:hover {
+  color: var(--logo-color);
+}
+.btn-delete:active {
+  transform: scale(0.94);
 }
 
 /* MEDIA QUERIES*/
@@ -186,5 +238,8 @@ a {
   }
   .instructions {
     margin: 2rem;
+  }
+  .favorites-list {
+    padding: 0 0.4rem;
   }
 }

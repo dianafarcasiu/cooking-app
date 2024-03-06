@@ -1,16 +1,50 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../containers/Navbar";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MealPage = () => {
   const { mealID } = useParams();
   const [meal, setMeal] = useState([]);
+  const [isAddedToFavorites, setIsAddedToFavorites] = useState(false);
 
   const ingredients = Array.from({ length: 20 }, (_, i) => {
     const ingredient = meal[`strIngredient${i + 1}`];
     const measure = meal[`strMeasure${i + 1}`];
     return ingredient && measure ? `${measure} ${ingredient}` : null;
   }).filter(Boolean);
+
+  // LS
+  const mealsFromLS = JSON.parse(localStorage.getItem("mealsForLS")) || [{}];
+  const [mealsForLS, setMealsForLS] = useState(mealsFromLS);
+
+  useEffect(
+    function () {
+      localStorage.setItem("mealsForLS", JSON.stringify(mealsForLS));
+    },
+    [mealsForLS]
+  );
+
+  function handleAddToFavorites() {
+    const isMealInFavorites = mealsFromLS.some(
+      (item) => item.mealID === mealID
+    );
+
+    if (!isMealInFavorites) {
+      const newFavorites = [
+        ...mealsFromLS,
+        {
+          strMeal: meal.strMeal,
+          mealID: mealID,
+          strMealThumb: meal.strMealThumb,
+        },
+      ];
+      localStorage.setItem("mealsForLS", JSON.stringify(newFavorites));
+      setMealsForLS(newFavorites);
+
+      setIsAddedToFavorites((is) => !is);
+    } else alert("Meal already added to favorites!");
+  }
 
   useEffect(
     function () {
@@ -28,11 +62,25 @@ const MealPage = () => {
     [mealID]
   );
 
+  useEffect(
+    function () {
+      document.title = meal.strMeal;
+
+      return function () {
+        document.title = "FoodieZ";
+      };
+    },
+    [meal]
+  );
+
   return (
     <>
       <Navbar />
 
       <div className="container-fluid px-5">
+        <Link to="/" className="arrow">
+          <i className="fa-solid fa-arrow-left-long"></i>
+        </Link>
         <h3 className="text-center mb-5">{meal.strMeal}</h3>
 
         <div className="d-flex justify-content-center gap-5 flex-wrap">
@@ -43,24 +91,32 @@ const MealPage = () => {
           ></img>
 
           <div className="content">
-            <h5>Ingredients</h5>
+            <h5 className="pb-2">Ingredients</h5>
             <ul className="ingredient-list">
               {ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
+                <li key={index}>- {ingredient}</li>
               ))}
             </ul>
           </div>
         </div>
-        {/* <p>Category: {meal.strCategory}</p>
-        <p>Area: {meal.strArea}</p> */}
+
+        <p className="meal-info text-center mt-5 mb-0">
+          <span>Category:</span> {meal.strCategory}
+        </p>
+        <p className="meal-info text-center mt-1">
+          <span>Area:</span> {meal.strArea}
+        </p>
 
         <p className="instructions">{meal.strInstructions}</p>
 
         <div className="buttons d-flex justify-content-center gap-4 mb-5">
-          <button>
-            <i className="fa-regular fa-heart"></i>
-            Add to favorites
-            <i className="fa-solid fa-heart"></i>
+          <button onClick={handleAddToFavorites}>
+            {isAddedToFavorites ? (
+              <i className="fa-solid fa-heart"></i>
+            ) : (
+              <i className="fa-regular fa-heart"></i>
+            )}
+            {isAddedToFavorites ? " Added to favorites" : " Add to favorites"}
           </button>
 
           <button>
