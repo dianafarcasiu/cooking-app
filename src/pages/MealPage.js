@@ -7,6 +7,7 @@ const MealPage = () => {
   const { mealID } = useParams();
   const [meal, setMeal] = useState([]);
   const [isAddedToFavorites, setIsAddedToFavorites] = useState(false);
+  const [error, setError] = useState(null);
 
   const ingredients = Array.from({ length: 20 }, (_, i) => {
     const ingredient = meal[`strIngredient${i + 1}`];
@@ -49,12 +50,22 @@ const MealPage = () => {
   useEffect(
     function () {
       async function getMealData() {
-        const res = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`
-        );
-        const data = await res.json();
-        console.log(data.meals[0]);
-        setMeal(data.meals[0]);
+        try {
+          const res = await fetch(
+            `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`
+          );
+          if (!res.ok)
+            throw new Error(
+              `Something went wrong, meal data not found. Status: ${res.status}`
+            );
+
+          const data = await res.json();
+          console.log(data.meals[0]);
+          setMeal(data.meals[0]);
+        } catch (error) {
+          console.error(error.message);
+          setError(error.message);
+        }
       }
 
       getMealData();
@@ -78,53 +89,63 @@ const MealPage = () => {
       <Navbar />
 
       <div className="container-fluid px-5">
-        <Link to="/" className="arrow">
-          <i className="fa-solid fa-arrow-left-long"></i>
-        </Link>
-        <h3 className="text-center mb-5">{meal.strMeal}</h3>
-
-        <div className="d-flex justify-content-center gap-5 flex-wrap">
-          <img
-            src={meal.strMealThumb}
-            alt={meal.strMeal}
-            className="meal-img"
-          ></img>
-
-          <div className="content">
-            <h5 className="pb-2">Ingredients</h5>
-            <ul className="ingredient-list">
-              {ingredients.map((ingredient, index) => (
-                <li key={index}>- {ingredient}</li>
-              ))}
-            </ul>
+        {error ? (
+          <div className="alert alert-danger my-5" role="alert">
+            {error}
           </div>
-        </div>
+        ) : (
+          <>
+            <Link to="/" className="arrow">
+              <i className="fa-solid fa-arrow-left-long"></i>
+            </Link>
+            <h3 className="text-center mb-5">{meal.strMeal}</h3>
 
-        <p className="meal-info text-center mt-5 mb-0">
-          <span>Category:</span> {meal.strCategory}
-        </p>
-        <p className="meal-info text-center mt-1">
-          <span>Area:</span> {meal.strArea}
-        </p>
+            <div className="d-flex justify-content-center gap-5 flex-wrap">
+              <img
+                src={meal.strMealThumb}
+                alt={meal.strMeal}
+                className="meal-img"
+              ></img>
 
-        <p className="instructions">{meal.strInstructions}</p>
+              <div className="content">
+                <h5 className="pb-2">Ingredients</h5>
+                <ul className="ingredient-list">
+                  {ingredients.map((ingredient, index) => (
+                    <li key={index}>- {ingredient}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
-        <div className="buttons d-flex justify-content-center gap-4 mb-5">
-          <button onClick={handleAddToFavorites}>
-            {isAddedToFavorites ? (
-              <i className="fa-solid fa-heart"></i>
-            ) : (
-              <i className="fa-regular fa-heart"></i>
-            )}
-            {isAddedToFavorites ? " Added to favorites" : " Add to favorites"}
-          </button>
+            <p className="meal-info text-center mt-5 mb-0">
+              <span>Category:</span> {meal.strCategory}
+            </p>
+            <p className="meal-info text-center mt-1">
+              <span>Area:</span> {meal.strArea}
+            </p>
 
-          <button>
-            <a href={meal.strYoutube} target="blank">
-              <i className="fa-brands fa-youtube"></i> Watch on youtube
-            </a>
-          </button>
-        </div>
+            <p className="instructions">{meal.strInstructions}</p>
+
+            <div className="buttons d-flex justify-content-center gap-4 mb-5">
+              <button onClick={handleAddToFavorites}>
+                {isAddedToFavorites ? (
+                  <i className="fa-solid fa-heart"></i>
+                ) : (
+                  <i className="fa-regular fa-heart"></i>
+                )}
+                {isAddedToFavorites
+                  ? " Added to favorites"
+                  : " Add to favorites"}
+              </button>
+
+              <button>
+                <a href={meal.strYoutube} target="blank">
+                  <i className="fa-brands fa-youtube"></i> Watch on youtube
+                </a>
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
