@@ -3,7 +3,7 @@ import Meal from "../components/Meal";
 import Text from "../components/Text";
 import { Link } from "react-router-dom";
 
-const MealResults = ({ input, setInput, title, meals, setMeals }) => {
+const MealResults = ({ input, title, meals, setMeals }) => {
   useEffect(
     function () {
       if (input) {

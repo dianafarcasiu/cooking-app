@@ -26,7 +26,6 @@ const HomePage = () => {
           <RandomMealResults />
           <MealResults
             input={input}
-            setInput={setInput}
             title={title}
             meals={meals}
             setMeals={setMeals}
